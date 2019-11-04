@@ -3,23 +3,29 @@
 <head>
 <meta http-equiv="Content-Type" content="application/json; charset=UTF-8" />
 <meta charset="utf-8">
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"> </script>
+
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"> </script><!-- 加载 jQuery 这个js库 ，是服务于后面 js 代码中使用到的 ajax -->
 <script type="text/javascript" >
+	function clearCode(element){// 用来清除 源代码区域的 默认内容
+		if (element.value == "Input your python code here.")
+			element.value = ""
+	}
+
 	function f() {
-		code = document.getElementById("code").value
-		console.log(code.substring(1,40))
+		code = document.getElementById("code").value// 获得前端中id="code" 字段的值，本项目中应该是用户输入的python 源代码
+		
 		url = "post_test"
 		
 		$.ajax({
-			type: "POST",
-			url: url,
-			data:JSON.stringify({"code":code}),
+			type: "POST",// 指定http 方式
+			url: url,// 告诉后端路由,后端会根据这个url去调用相应的函数
+			data:JSON.stringify({"code":code}),// 前端提交给后端一个 json 格式的数据
 			contentType: 'application/json; charset=UTF-8',//告诉后端传过去的数据的格式
-			success: function (r) {//返回数据根据结果进行相应的处理
-				$("#result").text(r);
+			success: function (r) {//成功获得后端发来的响应数据，则根据该数据进行相应的处理（本项目中，r是后端发来的字符串格式数据）
+				$("#result").text(r);// 给前端中 id="result" 的标签置入内容
 			},
 			error: function () {
-				$("#result").text("获取数据失败！");
+				$("#result").text("Something went wrong! Could you give me a hug?");
 			}
 		});
 	}
@@ -31,8 +37,8 @@
 	</center>
 
 	<center>
-		<textarea id = "code" class="form-control" name ="code" rows="20" cols="80">Input your python code here.</textarea>
-		<textarea id ="result" rows="20" cols="80">See your result here. </textarea>
+		<textarea id = "code"  rows="20" cols="80" onfocus="clearCode(this)">Input your python code here.</textarea>
+		<textarea id ="result" rows="20" cols="80" readonly="readonly ">See your result here. </textarea>
 	</center>
 
 	<center>
@@ -41,3 +47,4 @@
 
 </body>
 </html>
+<!-- 注意 js 脚本的放置位置 ->

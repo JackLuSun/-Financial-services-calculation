@@ -25,7 +25,7 @@ def hello_world():
     return r
 
 
-@app.route('/post_test',methods=['POST','GET'])# 前端向后端发送要执行的源代码时，URL为 post
+@app.route('/post_test',methods=['POST','GET'])# 前端向后端发送要执行的源代码时，URL为 post_test 对应着前端 post 时候指定的 url
 def get_tasks():
     if request.method == 'POST':
         code = request.get_json(force=True)['code']# 前端那边采用json 格式,前端穿过来的数据指定放在了 'code' 关键字对应的值里
@@ -40,5 +40,5 @@ def get_tasks():
     return hello_world()
  
 if __name__ == '__main__':
-    app.run(host='localhost',port='2333')
+    app.run(host='111.186.1.46',port='2333')
     
