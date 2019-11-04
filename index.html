@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="application/json; charset=UTF-8" />
+<meta charset="utf-8">
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"> </script>
+<script type="text/javascript" >
+	function f() {
+		code = document.getElementById("code").value
+		console.log(code.substring(1,40))
+		url = "post_test"
+		
+		$.ajax({
+			type: "POST",
+			url: url,
+			data:JSON.stringify({"code":code}),
+			contentType: 'application/json; charset=UTF-8',//告诉后端传过去的数据的格式
+			success: function (r) {//返回数据根据结果进行相应的处理
+				$("#result").text(r);
+			},
+			error: function () {
+				$("#result").text("获取数据失败！");
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	<center>
+		<h1>Risk Calculation Visualization</h1>
+	</center>
+
+	<center>
+		<textarea id = "code" class="form-control" name ="code" rows="20" cols="80">Input your python code here.</textarea>
+		<textarea id ="result" rows="20" cols="80">See your result here. </textarea>
+	</center>
+
+	<center>
+		<button type="button"  onclick="f()">RUN</button>
+	</center>
+
+</body>
+</html>
