@@ -24,7 +24,6 @@ def hello_world():
         r = f.read() 
     return r
 
-
 @app.route('/post_test',methods=['POST','GET'])# 前端向后端发送要执行的源代码时，URL为 post_test 对应着前端 post 时候指定的 url
 def get_tasks():
     if request.method == 'POST':
