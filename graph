@@ -1,0 +1,15 @@
+digraph {
+a->b [label = "a*2=b"]
+
+a->c [label = "a*3=c"]
+
+c->d [label = ""]
+
+a [label = "a=100"]
+
+b [label = "b=200"]
+
+c [label = "c=300"]
+
+d [label = ""]
+}
