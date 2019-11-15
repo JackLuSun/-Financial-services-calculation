@@ -6,7 +6,7 @@ Created on Sat Nov  2 23:50:01 2019
 GOAL: 开发一个简陋的python在线运行网站，借助 python 后端框架flask 快速实现后端的简要开发
 """
 from flask import Flask, request
-import subprocess
+#import subprocess
 
 app = Flask(__name__)
 
@@ -19,11 +19,11 @@ def hello_world():
     return r
 
 # 这里只是为了回复前端 GET 请求 js 文件，这里手法拙劣，flask 中应该有更好的方法
-@app.route('/Webgraphviz_files/viz.js',methods=['GET'])
+@app.route('/viz.js',methods=['GET'])
 def jsFile():
    # print('want js')
     r = ''
-    with open('Webgraphviz_files/viz.js ') as f:
+    with open('viz.js ') as f:
         r = f.read()
     return r
 
