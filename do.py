@@ -54,7 +54,7 @@ def get_tasks():
         subprocess.Popen(['python', 'code.py'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
         textPreprocess()# 对输入文本进行处理 ,内部指定了对 input.txt 文件进行处理
-        graph = graphviz.Source.from_file("graph.gv")
+        graph = graphviz.Source.from_file("graph.gv")# graph.gv 在函数 textPreproces 中产生，它是一个 dot 源码
         graph.format = 'svg'
         svg = graph.pipe().decode('utf-8')# 通过管道，直接得到 graph 这个 dot 对象的 svg 源码
     
