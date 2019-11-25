@@ -1,53 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="application/json; charset=UTF-8" />
-<meta charset="utf-8">
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"> </script><!-- 加载 jQuery 这个js库 ，是服务于后面 js 代码中使用到的 ajax 和 vis.js -->
-<script language="javascript" type="text/javascript" src="viz.js"></script>
-<script type="text/javascript" >
-	function clearCode(element){// 用来清除 源代码区域的 默认内容
-		if (element.value == "Input your python code here.")
-			element.value = ""
-	}
-
-	function f() {
-		var graph = jQuery('#graphArea');
-		code = document.getElementById("code").value// 获得前端中id="code" 字段的值，本项目中应该是用户输入的python 源代码
-		url = "post_test"
-		
-		$.ajax({
-			type: "POST",// 指定http 方式
-			url: url,// 告诉后端路由,后端会根据这个url去调用相应的函数
-			data:JSON.stringify({"code":code}),// 前端提交给后端一个 json 格式的数据
-			contentType: 'application/json; charset=UTF-8',//告诉后端传过去的数据的格式
-			success: function (r) {//成功获得后端发来的响应数据，则根据该数据进行相应的处理（本项目中，r是后端发来的字符串格式数据）
-				$("#result").text(r);// 给前端中 id="result" 的标签置入内容
-				graph.html("");
-				var svg = Viz(r, "svg");// 生成相应的可视化结果(可视化结果就是相应的 html 里的 svg 标签 ，直接可以嵌入 html 中，并进行显示) 显示的可视化结果
-				graph.html("<hr>"+svg);// 将可视化结果装载入svg，浏览器上进行显示
-			},
-			error: function () {
-				$("#result").text("Something went wrong! Could you give me a hug?");
-			}
-		});
-	}
-</script>
+	<meta http-equiv="Content-Type" content="application/json; charset=UTF-8" />
+	<meta charset="utf-8">
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"> </script><!-- 加载 jQuery 这个js库 ，是服务于后面 js 代码中使用到的 ajax 和 vis.js -->
+	<script type="text/javascript" >
+		function clearCode(element){// 用来清除 源代码区域的 默认内容
+			if (element.value == "Input your python code here.")
+				element.value = ""
+		}
+		function f() {
+			var graph = jQuery('#graphArea');
+			code = document.getElementById("code").value// 获得前端中id="code" 字段的值，本项目中应该是用户输入的python 源代码
+			url = "post_test"
+			
+			$.ajax({
+				type: "POST",// 指定http 方式
+				url: url,// 告诉后端路由,后端会根据这个url去调用相应的函数
+				data:JSON.stringify({"code":code}),// 前端提交给后端一个 json 格式的数据
+				contentType: 'application/json; charset=UTF-8',//告诉后端传过去的数据的格式
+				success: function (svg) {//成功获得后端发来的响应数据，则根据该数据进行相应的处理（本项目中，svg是后端发来的字符串格式数据）
+					console.log(svg)
+					graph.html("<hr>"+svg);// 将 svg 源码直接嵌入 html 文件
+				},
+				error: function () {
+					$("#result").text("Something went wrong! Could you give me a hug?");
+				}
+			});
+		}
+	</script>
 </head>
+
 <body>
 	<center>
 		<h1>Risk Calculation Visualization</h1>
 	</center>
 
-	<center>
-		<textarea id = "code"  rows="20" cols="80" onfocus="clearCode(this)">Input your python code here.</textarea>
-		<textarea id ="result" rows="20" cols="80" readonly="readonly ">See your result here. </textarea>
-	</center>
-
-	<center>
-		<button type="button"  onclick="f()">RUN</button>
-	</center>
-	<div id="graphArea"><hr></div>
+	<center> <textarea id = "code"  rows="20" cols="80" onfocus="clearCode(this)">Input your python code here.</textarea></center>
+	<center><button type="button"  onclick="f()">RUN</button></center>
+	<center><div id="graphArea"><hr></div><center><!-- 显示 可视化结果 -->
 
 </body>
 </html>
