@@ -19,15 +19,6 @@ def hello_world():
         
     return r
 
-# 这里只是为了回复前端 GET 请求 js 文件，这里手法拙劣，flask 中应该有更好的方法
-@app.route('/viz.js',methods=['GET'])
-def jsFile():
-   # print('want js')
-    r = ''
-    with open('viz.js ') as f:
-        r = f.read()
-    return r
-
 def textPreprocess():
     '''
         对原始的 input.txt 文件进行格式化，生成符合规范的 dot 源码
